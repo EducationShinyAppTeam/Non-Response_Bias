@@ -1,8 +1,8 @@
 library(shiny)
-library(ggplot2)
+library(dplyr)
+library(Matrix)
 library(mosaic)
-library(scales)
-library(Hmisc)
+library(ggplot2)
 library(DT)
 
 
