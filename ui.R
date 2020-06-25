@@ -249,6 +249,8 @@ dashboardPage(
         p(class = "hangingindent",
           "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. (2019), shiny: Web application framework for R, R Package. Available from https://CRAN.R-project.org/package=shiny"),
         p(class = "hangingindent",
+          "Frank E. Harrell, Jr. (2020), Confidence Intervals for Binomial Probability. We needed to bypass the loading of the foreign package for R 3.6.3, thus we are using the definition of the binconf which is all we needed from Hmisc. Available from https://CRAN.R-project.org/package=Hmisc"),
+        p(class = "hangingindent",
           "Harrell Jr, F., Dupont C., and many others. (2020), Hmisc: Harrell miscellaneous, R Package. Available from https://CRAN.R-project.org/package=Hmisc"),
         p(class = "hangingindent",
           "Pruim, R., Kaplan, D., and Horton, N. (2020), mosaic: Project MOSAIC statistics and mathematics teaching utilities, R Package. Avaliable from https://CRAN.R-project.org/package=mosaic"),
@@ -258,7 +260,7 @@ dashboardPage(
           "Wickham, H., Seidel, D., and R Studio. (2020), scales: Scale function for visualization, R Package. Availabel from https://CRAN.R-project.org/package=scales"),
         p(class = "hangingindent",
           "Xie, Y. (2020), DT: A wrapper of the JavaScript library 'DataTables', R Package. Available from https://CRAN.R-project.org/package=DT")
-      )
+        )
   
     )#end of tabItem
   )#end of dashboardBody
