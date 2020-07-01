@@ -4,7 +4,7 @@ library(shinyBS)
 
 
 dashboardPage(
-  skin = "purple",
+  skin = "red",
   
   #Title
   dashboardHeader(
