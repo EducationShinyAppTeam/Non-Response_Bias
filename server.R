@@ -126,8 +126,8 @@ shinyServer(function(input, output, session) {
                  size = 1.2,
                  colour = "orange") +
       labs(
-        title = paste0("Study result is ", input$prop),
-        x = "Whether PA Resident",
+        title = paste0("True proportion for volunteer population is ", input$prop),
+        x = "Pennsylvania residency status",
         y = "Proportion Enrollment by Residency"
       )
     #barplot(my_vector,col=rgb(0.2,0.4,0.6,0.6),ylim=c(0,1), ylab="precentage")
@@ -280,7 +280,7 @@ shinyServer(function(input, output, session) {
         title = paste0("Sample proportion for residency in UP = ",
                        round(mean(OneSample(
                        )$x), 2)),
-        x = "Whether PA Resident",
+        x = "Pennsylvania residency status",
         y = "Proportion Enrollment by Residency"
       )
     #barplot(my_vector,col=rgb(0.2,0.4,0.6,0.6),ylim=c(0,1), ylab="precentage")

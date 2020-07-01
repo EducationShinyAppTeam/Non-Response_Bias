@@ -10,10 +10,7 @@ dashboardPage(
   dashboardHeader(
     title = "Non-response Bias",
     titleWidth = 250,
-    tags$li(class = "dropdown", actionLink("info", icon("info"))),
-    tags$li(class = "dropdown",
-            tags$a(href='https://github.com/EducationShinyAppTeam/BOAST',
-                   icon("github"))),
+    
     tags$li(class = "dropdown",
             tags$a(href='https://shinyapps.science.psu.edu/',
                    icon("home")))
@@ -29,7 +26,7 @@ dashboardPage(
                        tabName = "UPRes",
                        icon = icon("wpexplorer")
                      ),
-                     menuItem("Reference",tabName = "Ref",icon = icon("leanpub"))),
+                     menuItem("References",tabName = "Ref",icon = icon("leanpub"))),
                      #PSU logo
                      tags$div(
                        class = "sidebar-logo",
@@ -52,18 +49,13 @@ dashboardPage(
         
         
         h1("Non-Response Bias"),
-        p(
-          "This app represents an interactive supplementary module embedded in statistics lessons with two features. The first feature visualizes how the variations in confidence levels and sample size affect the outcome confidence interval in a single mean. The second feature explores the non-response bias when considering true proportion."
-        ),
-        p(
-          "This lesson explores the behavior of confidence intervals for a single proportion, considering non-response bias."
-        ),
+        p("This app visualizes how the confidence level and sample size affect the outcome confidence interval for a single proportion. The app also explores  non-response bias when respondents are chosen from a population with a different true proportion causing non-response bias."),
         br(),
         h2("Instructions"),
        
         tags$ol(
           tags$li(
-            "Move the sample size and level sliders to see how they affect confidence intervals for the proportion of Penn State students who are residents of Pennsylvania  or two-sample tests for differences in the proportion of Pennsylvania residents between the University Park campus and the other campuses."
+            "Move the sample size and level sliders to see how they affect confidence intervals for the proportion of Penn State students who are residents of Pennsylvania."
           ),
           tags$li(
             "Move the true proportion slider to see the effects of non-response bias."
@@ -82,22 +74,9 @@ dashboardPage(
           )
         ),
         br(),
-        h2("Acknowledgements:"),
+        h2("Acknowledgements"),
+        p("This app was developed and programmed by Zhuolin Luo extending earlier work by  Yingjie (Chelsea) Wang."),
         
-        p(
-          "Information about confidence interval graph was drawn from Randall Pruim's shiny app."
-        ),
-        p(
-          "Budget Office in PSU. (2019), Enrollment by Residency Fall 2019. Available at https://factbook.psu.edu/factbook/StudentDynamic/PANonPASummary.aspx?YearCode=2019Enr&FBPlusIndc=N"
-        
-          ),
-        
-        helpText(
-          a("Click Here to view original official page",
-            href = "https://factbook.psu.edu/factbook/StudentDynamic/PANonPASummary.aspx?YearCode=2019Enr&FBPlusIndc=N",
-            target = "blank"
-          )
-        ),
         br(),
         p("We would like to extend a special thanks to the Shiny Program Students.",
         br(),
@@ -120,7 +99,7 @@ dashboardPage(
                   collapsible = TRUE,
                   collapsed = FALSE,
                   width = '100%',
-                  "A researcher plans to take a random sample of size n students to do a survey about their experiences in studying at the University Park campus of Penn State University. However, she worries that sample results could be biased because the population of students who agree to participate might be different from those who don't (this would be an example of non-response bias). The researcher makes a confidence interval for the percentage of Penn State Students who are Pennsylvania residents based on her study and compares it to the null hypothesis mean of 59.5% for the population of all Penn State University Park students. This app shows how confidence intervals of that type would come out when there is bias so the proportion for the population of volunteer participants is really different."
+                  "A researcher plans to take a random sample of size n students to do a survey about their experiences in studying at the University Park campus of Penn State University. However, she worries that sample results could be biased because the population of students who agree to participate might be different from those who don't (this would be an example of non-response bias). The researcher makes a confidence interval for the percentage of Penn State Students who are Pennsylvania residents based on her study and compares it to the null hypothesis proportion of 0.583 for the population of all Penn State University Park students. This app shows how confidence intervals of that type would come out when there is bias so the proportion for the population of volunteer participants is really different."
                 )
                 ,
                 sidebarLayout(
@@ -163,7 +142,7 @@ dashboardPage(
                     
                     selectInput(
                       "base",
-                      "Select Base of CI Color",
+                      "Select Basis of CI coverage color code",
                       selected = "True Proportion",
                       choices = c("Null Hypothesis Proportion", "True Proportion")
                     ),
@@ -172,7 +151,7 @@ dashboardPage(
                     bsPopover(
                       "new",
                       "Note",
-                      "By clicking on this button, new 50 sample with the size you have input in each sample will be generated.",
+                      "Click to generate 50 new samples, each with the sample size you have input.",
                       trigger = "hover",
                       placement = "right"
                     ),
@@ -197,8 +176,8 @@ dashboardPage(
                       br(),
                       bsPopover(
                         "sampProp",
-                        "Sample Histogram Plot",
-                        "This is the histogram plot of the sample you selected on Confidence Interval Plot. The orange line is the true percentage that you input.",
+                        "Sample Histogram",
+                        "This is the histogram plot of the sample you selected on Confidence Interval Plot. The orange line is the true proportion that you input.",
                         trigger = "hover",
                         placement = "top"
                       ),
@@ -207,7 +186,7 @@ dashboardPage(
                       bsPopover(
                         "popMean",
                         "Population Bar Graph",
-                        "This is the bar plot based on percentage you input. The green line is the null hypothesis perventage and alsp the true percentage in 2016.",
+                        "This is the bar plot based on proportion you input. The green line is the null hypothesis perventage and also the true proportion in 2019.",
                         trigger = "hover",
                         placement = "bottom"
                       ),
@@ -251,13 +230,13 @@ dashboardPage(
         p(class = "hangingindent",
           "Chang, W., Cheng, J., Allaire, J., Xie, Y., and McPherson, J. (2019), shiny: Web application framework for R, R Package. Available from https://CRAN.R-project.org/package=shiny"),
         p(class = "hangingindent",
-          "Frank E. Harrell, Jr. (2020), Confidence Intervals for Binomial Probability. We needed to bypass the loading of the foreign package for R 3.6.3, thus we are using the definition of the binconf which is all we needed from Hmisc. Available from https://CRAN.R-project.org/package=Hmisc"),
+          "Harrell, F.E. (2020), Confidence Intervals for Binomial Probability. We needed to bypass the loading of the foreign package for R 3.6.3, thus we are using the definition of the binconf which is all we needed from Hmisc. Available from https://CRAN.R-project.org/package=Hmisc"),
         p(class = "hangingindent",
-          "Pruim, R., Kaplan, D., and Horton, N. (2020), mosaic: Project MOSAIC statistics and mathematics teaching utilities, R Package. Avaliable from https://CRAN.R-project.org/package=mosaic"),
+          "Pruim, R., Kaplan, D.T., and Horton, N.J. (2020), mosaic: Project MOSAIC statistics and mathematics teaching utilities, R Package. Avaliable from https://CRAN.R-project.org/package=mosaic"),
         p(class = "hangingindent",
-          "Wickham, H., Francois R., Henry L., and Muller K. (2020), dplyr: A Grammar of Data Manipulation, R Package. Available from https://cran.r-project.org/web/packages/dplyr/index.html"),
+          "Wickham H., Francois R., Henry L., and Muller K. (2020), dplyr: A Grammar of Data Manipulation, R Package. Available from https://cran.r-project.org/web/packages/dplyr/index.html"),
         p(class = "hangingindent",
-          "Wickham, H. (2016), ggplot2: Elegant graphics for data analysis, R Package, New York: Springer-Verlag. Available from https://ggplot2.tidyverse.org"),
+          "Wickham H. (2016), ggplot2: Elegant graphics for data analysis, R Package, New York: Springer-Verlag. Available from https://ggplot2.tidyverse.org"),
         p(class = "hangingindent",
           "Wickham, H., Seidel, D., and R Studio. (2020), scales: Scale function for visualization, R Package. Availabel from https://CRAN.R-project.org/package=scales"),
         p(class = "hangingindent",
