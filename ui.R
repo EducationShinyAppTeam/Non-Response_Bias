@@ -77,13 +77,13 @@ dashboardPage(
         h2("Acknowledgements"),
         p("This app was developed and programmed by Zhuolin Luo extending earlier work by  Yingjie (Chelsea) Wang."),
         
+      
+       
         br(),
-        p("We would like to extend a special thanks to the Shiny Program Students.",
         br(),
         br(),
-        br(),
-        div(class = "updated", "Last Update: 06/22/2020 by ZL.")
-        )
+        div(class = "updated", "Last Update: 07/06/2020 by ZL.")
+        
       ),
       
       
@@ -116,7 +116,7 @@ dashboardPage(
                     
                     sliderInput(
                       "prop",
-                      "True Proportion for Pennsylvania Students in UP",
+                      "True Proportion for volunteer population",
                       min = 0.01,
                       max = 0.99,
                       value = 0.583,
@@ -176,8 +176,8 @@ dashboardPage(
                       br(),
                       bsPopover(
                         "sampProp",
-                        "Sample Histogram",
-                        "This is the histogram plot of the sample you selected on Confidence Interval Plot. The orange line is the true proportion that you input.",
+                        "Sample Bar Graph",
+                        "This is the bar graph of the sample you selected on Confidence Interval Plot. The orange line is the true proportion that you input.",
                         trigger = "hover",
                         placement = "top"
                       ),
@@ -233,6 +233,7 @@ dashboardPage(
           "Harrell, F.E. (2020), Confidence Intervals for Binomial Probability. We needed to bypass the loading of the foreign package for R 3.6.3, thus we are using the definition of the binconf which is all we needed from Hmisc. Available from https://CRAN.R-project.org/package=Hmisc"),
         p(class = "hangingindent",
           "Pruim, R., Kaplan, D.T., and Horton, N.J. (2020), mosaic: Project MOSAIC statistics and mathematics teaching utilities, R Package. Avaliable from https://CRAN.R-project.org/package=mosaic"),
+        
         p(class = "hangingindent",
           "Wickham H., Francois R., Henry L., and Muller K. (2020), dplyr: A Grammar of Data Manipulation, R Package. Available from https://cran.r-project.org/web/packages/dplyr/index.html"),
         p(class = "hangingindent",
