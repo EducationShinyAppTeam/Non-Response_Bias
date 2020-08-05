@@ -94,19 +94,6 @@ shinyServer(function(input, output, session) {
   observeEvent(input$explore, {
     updateTabItems(session, "tabs", "UPRes")
   })
-  #Null hypothesis
-  output$nullhypo = renderUI({
-    h3("Ho: p = 0.583")
-  })
-  
-  output$design = renderUI({
-    if (input$designcheckbox)
-    {
-      h4(
-        "A researcher plans to take a random sample of size n students to do a survey about their experiences in studying at the University Park campus of Penn State University. However, she worries that sample results could be biased because the students who agree to participate might be different from those who don't (this would be an example of non-response bias). The researcher makes a confidence interval for the percentage of Penn State Students who are Pennsylvania residents based on her study. This app shows  how confidence intervals of that type would come out when there is no bias."
-      )
-    }
-  })
   
   #population plot with true prop
   output$popMean  = renderPlot({
@@ -208,12 +195,6 @@ shinyServer(function(input, output, session) {
   output$CIplot <- renderPlot({
     validate(need(is.numeric(input$nsamp),
                   message = "Please input sample size"))
-    
-    # validate(
-    #   need(input$nsamp >=30,
-    #        message = "Please input samle size larger than 30")
-    # )
-    
     ggplot(data = Intervals()) +
       geom_pointrange(
         aes(
@@ -283,7 +264,7 @@ shinyServer(function(input, output, session) {
         x = "Pennsylvania residency status",
         y = "Proportion Enrollment by Residency"
       )
-    #barplot(my_vector,col=rgb(0.2,0.4,0.6,0.6),ylim=c(0,1), ylab="precentage")
+    
     
   })
   
@@ -301,7 +282,15 @@ shinyServer(function(input, output, session) {
                  rate$total <- nrow(Intervals())
                })
   
-  # text messages
+  # text messages 
+  output$orangeline <- renderText({
+    paste0("The orange line is the true proportion that you input.")
+  })
+  
+  output$greenline <- renderText({
+    paste0("The green line is the null hypothesis percentage and also the true proportion in 2019.")
+  })
+  
   output$CoverageRate <- renderText({
     validate(need(is.numeric(input$nsamp),
                   message = "Please input sample size"))
@@ -310,11 +299,9 @@ shinyServer(function(input, output, session) {
       sum(Intervals()$cover),
       "of these",
       nrow(Intervals()),
-      "intervals cover the parameter value. And coverage rate is ",
-      round(100 *  sum(Intervals()$cover) / nrow(Intervals()), 2),
-      "% (",
-      rate$total,
-      " samples)"
+      "intervals cover the null hypothesis parameter value. And coverage rate is",
+      round(100 * sum(Intervals()$cover) / nrow(Intervals()), 2),
+      "% (50 samples). "
     )
   })
   ############################################################
