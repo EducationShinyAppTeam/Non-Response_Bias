@@ -282,7 +282,7 @@ shinyServer(function(input, output, session) {
                  rate$total <- nrow(Intervals())
                })
   
-  # text messages 
+  # information about the lines
   output$orangeline <- renderText({
     paste0("The orange line is the true proportion that you input.")
   })

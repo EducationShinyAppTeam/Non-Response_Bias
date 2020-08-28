@@ -86,7 +86,7 @@ dashboardPage(
         br(),
         br(),
         br(),
-        div(class = "updated", "Last Update: 07/06/2020 by ZL.")
+        div(class = "updated", "Last Update: 08/28/2020 by ZL.")
         )
       ),
       
@@ -154,22 +154,26 @@ dashboardPage(
                   "Click to generate 50 new samples, each with the sample size you have input.",
                   trigger = "hover",
                   placement = "right"
-                ),
-                br(),
-                wellPanel(
-                  textOutput("orangeline"),
-                  textOutput("greenline")
                 )
          ),
-         column(8,
-                plotOutput("popMean", height = "350px"),
+         column(4,
+                plotOutput("popMean", height = "450px"),
                 tags$script(HTML(
                   "$(document).ready(function() {
                   document.getElementById('popMean').setAttribute('aria-label',
                   `Population proportion`)
                   })"
                 )),
-                plotOutput("sampProp", height = "350px"),
+                bsPopover(
+                  "popMean",
+                  "Population Bar Graph",
+                  "This is the bar plot based on proportion you input.",
+                  trigger = "hover",
+                  placement = "bottom"
+                )
+                ),
+         column(4,
+                plotOutput("sampProp", height = "450px"),
                 tags$script(HTML(
                   "$(document).ready(function() {
                   document.getElementById('sampProp').setAttribute('aria-label',
@@ -182,19 +186,18 @@ dashboardPage(
                   "This is the bar graph of the sample you selected on Confidence Interval Plot.",
                   trigger = "hover",
                   placement = "top"
-                ),
-                bsPopover(
-                  "popMean",
-                  "Population Bar Graph",
-                  "This is the bar plot based on proportion you input.",
-                  trigger = "hover",
-                  placement = "bottom"
                 )
                 )
-       ),
+         ),
+         br(),
+         fluidRow(
+             textOutput("orangeline"),
+             textOutput("greenline")
+         ),
+       
        br(),
        fluidRow(
-         plotOutput("CIplot", height = "700px", click = "plot_click"),
+         plotOutput("CIplot", height = "750px", click = "plot_click"),
          tags$script(HTML(
            "$(document).ready(function() {
            document.getElementById('CIplot').setAttribute('aria-label',
