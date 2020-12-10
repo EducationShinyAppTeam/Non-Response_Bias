@@ -92,7 +92,7 @@ binconf <- function (x, n, alpha = 0.05,
 shinyServer(function(input, output, session) {
   #Explore Button
   observeEvent(input$explore, {
-    updateTabItems(session, "tabs", "UPRes")
+    updateTabItems(session, "pages", "UPRes")
   })
   
   #population plot with true prop
