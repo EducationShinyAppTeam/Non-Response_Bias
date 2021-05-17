@@ -1,0 +1,24 @@
+Title: Non-response Bias
+ShortName: Non-response Bias
+Date: 2021-05-17
+Lifecycle: experimental
+Authors@R: c(
+    person(given = "Zhuolin", family = "Luo", role = c("aut")),
+    person(given = "Yingjie", family = "Wang", role = c("cre")),
+    person(given = "Neil", family = "Hatfield", email = "neil.hatfield@psu.edu", role = c("aut"))
+  )
+Chapter: Sampling
+Description: This app visualizes how the confidence level and sample size affect
+    the outcome confidence interval for a single proportion. The app also explores
+    non-response bias when respondents are chosen from a population with a
+    different true proportion causing non-response bias.
+LearningObjectives: c(
+    "The student will learn to understand Concept A in way z.",
+    "The student will learn to understand Concept B as description y."
+  )
+DisplayMode: Normal
+URL: https://psu-eberly.shinyapps.io/Non-response_Bias
+BugReports: https://github.com/EducationShinyAppTeam/Non-response_Bias/issues
+License: CC-BY-NC-SA-4.0
+Tags: simulation
+Type: Shiny
