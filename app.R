@@ -191,8 +191,7 @@ ui <- list(
           of volunteer participants is really different."
           ),
           fluidRow(
-            column(
-              width = 4,
+            column(4,
               offest = 0,
               h3("Hypothesis"),
               uiOutput("nullhypo"),
@@ -413,7 +412,7 @@ server <- function(input, output, session) {
         sampleProp = binconf(Count, N(), alpha = alpha())[1],
         lowerbound = binconf(Count, N(), alpha = alpha())[2],
         upperbound = binconf(Count, N(), alpha = alpha())[3],
-        c
+        cover
         = if_else(input$base == "True Proportion", ((lowerbound < input$prop) &
                                                       (input$prop < upperbound)
         ), ((lowerbound < 0.583) & (0.583 < upperbound)
