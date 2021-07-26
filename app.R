@@ -97,11 +97,14 @@ ui <- list(
     dashboardHeader(
       title = "Non-Response Bias",
       titleWidth = 250,
-      tags$li(class = "dropdown", actionLink("info", icon("info"))),
+      tags$li(
+        class = "dropdown", 
+        actionLink("info", icon("info"))
+        ),
       tags$li(
         class = "dropdown",
         boastUtils::surveyLink(name = "Non-Response_Bias")
-      ),
+        ),
       tags$li(
         class = "dropdown",
         tags$a(
@@ -116,7 +119,7 @@ ui <- list(
       sidebarMenu(
         id = "pages",
         menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
-        menuItem("UP Residency Percentage", tabName = "UPRes", icon = icon("wpexplorer")),
+        menuItem("Explore", tabName = "UPRes", icon = icon("wpexplorer")),
         menuItem("References", tabName = "references",icon = icon("leanpub"))
       ),
       tags$div(
@@ -191,7 +194,8 @@ ui <- list(
           of volunteer participants is really different."
           ),
           fluidRow(
-            column(4,
+            column(
+              width = 4,
               offest = 0,
               h3("Hypothesis"),
               uiOutput("nullhypo"),
@@ -234,37 +238,39 @@ ui <- list(
                 placement = "right"
               )
             ),
-            column(4,
-                   plotOutput("popMean", height = "450px"),
-                   tags$script(HTML(
-                     "$(document).ready(function() {
+            column(
+              width = 4,
+              plotOutput("popMean", height = "450px"),
+              tags$script(HTML(
+                "$(document).ready(function() {
                   document.getElementById('popMean').setAttribute('aria-label',
                   `Population proportion`)
                   })"
-                   )),
-                  bsPopover(
-                    "popMean",
-                    "Population Bar Graph",
-                    "This is the bar plot based on proportion you input.",
-                    trigger = "hover",
-                    placement = "bottom"
-                  )
+              )),
+              bsPopover(
+                "popMean",
+                "Population Bar Graph",
+                "This is the bar plot based on proportion you input.",
+                trigger = "hover",
+                placement = "bottom"
+              )
             ),
-            column(4,
-                   plotOutput("sampProp", height = "450px"),
-                   tags$script(HTML(
-                     "$(document).ready(function() {
+            column(
+              width = 4,
+              plotOutput("sampProp", height = "450px"),
+              tags$script(HTML(
+                "$(document).ready(function() {
                   document.getElementById('sampProp').setAttribute('aria-label',
                   `Sample proportion`)
                   })"
-                   )),
-                  bsPopover(
-                    "sampProp",
-                    "Sample Bar Graph",
-                    "This is the bar graph of the sample you selected on Confidence Interval Plot.",
-                    trigger = "hover",
-                    placement = "top"
-                  )
+              )),
+              bsPopover(
+                "sampProp",
+                "Sample Bar Graph",
+                "This is the bar graph of the sample you selected on Confidence Interval Plot.",
+                trigger = "hover",
+                placement = "bottom"
+              )
             )
           ),
           br(),
@@ -272,7 +278,6 @@ ui <- list(
             textOutput("orangeline"),
             textOutput("greenline")
           ),
-
           br(),
           fluidRow(
             plotOutput("CIplot", height = "750px", click = "plot_click"),
@@ -282,34 +287,34 @@ ui <- list(
            `Confidence interval plot`)
            })"
             )),
-           textOutput("CoverageRate"),
-           bsPopover(
-             "CIplot",
-             "Confidence Interval Plot",
-             "The blue lines indicate a confidence interval covers the proportion selected
+            textOutput("CoverageRate"),
+            bsPopover(
+              "CIplot",
+              "Confidence Interval Plot",
+              "The blue lines indicate a confidence interval covers the proportion selected
            and the red lines indicate that the selected proportion is outside of the confidence interval.
            Click on an interval to show a bar graph for the underlying sample.",
-           trigger = "hover",
-           placement = "top"
-           ),
-           bsPopover(
-             "CIplot",
-             "Confidence Interval Plot",
-             "The blue lines indicate a confidence interval covers the proportion
+              trigger = "hover",
+              placement = "top"
+            ),
+            bsPopover(
+              "CIplot",
+              "Confidence Interval Plot",
+              "The blue lines indicate a confidence interval covers the proportion
            selected and the red lines indicate that the selected proportion is
            outside of the confidence interval. Click on an interval to show a
            histogram for the underlying sample.",
-           trigger = "hover",
-           placement = "top"
-           ),
-           tags$head(
-             tags$style(
-               "#CoverageRate{color: green;
+              trigger = "hover",
+              placement = "top"
+            ),
+            tags$head(
+              tags$style(
+                "#CoverageRate{color: green;
                                  font-size: 18px;
                                                      font-style: italic;
                                                      }"
-             )
-           )
+              )
+            )
           )
         ),
         ## References ----
@@ -351,17 +356,17 @@ server <- function(input, output, session) {
   observeEvent(input$explore, {
     updateTabItems(session, "pages", "UPRes")
   })
-
   #population plot with true prop
   output$popMean  = renderPlot({
     my_vector = c(0.583, 1 - 0.583)
     names(my_vector) = c("PA Students", "Non-PA Students")
-    ggplot() + geom_bar(
-      aes(x = names(my_vector), y = my_vector),
-      stat = 'identity',
-      width = 0.3,
-      fill = "steelblue"
-    ) +
+    ggplot() + 
+      geom_bar(
+        aes(x = names(my_vector), y = my_vector),
+        stat = 'identity',
+        width = 0.3,
+        fill = "steelblue"
+      ) +
       lims(y = c(0, 1)) +
       geom_hline(yintercept = 0.583,
                  color = "forestgreen",
@@ -375,22 +380,18 @@ server <- function(input, output, session) {
         y = "Proportion Enrollment by Residency"
       )
     #barplot(my_vector,col=rgb(0.2,0.4,0.6,0.6),ylim=c(0,1), ylab="precentage")
-
   })
-
-
-
+  
   #Calculating alpha by the confidence level input
   alpha <- reactive({
     (1 - input$level)
   })
-
+  
   #Updating Sample Size
   N <- reactive({
     as.integer(input$nsamp)
   })
-
-
+  
   #generate 50 new sample
   Data <- reactive({
     input$new
@@ -401,9 +402,8 @@ server <- function(input, output, session) {
                          ))) %>%
       mutate(idx = rep(1:50, each = input$nsamp))
   })
-
+  
   #calculate the interval
-
   Intervals <- reactive({
     Data() %>%
       group_by(idx) %>%
@@ -420,8 +420,7 @@ server <- function(input, output, session) {
       ) %>%
       ungroup()
   })
-
-
+  
   #default as all the samples are selected
   selected_sample <- 50
   selectedSample <- reactive({
@@ -434,19 +433,19 @@ server <- function(input, output, session) {
     }
     selected_sample
   })
-
+  
   OneSample <- reactive({
     Data() %>%
       filter(idx == selectedSample())
   })
-
+  
   OneSampleColor <- reactive({
     colors <- c("TRUE" = "navy", "FALSE" = "red")
     covers <-
       (Intervals() %>% filter(idx == selectedSample()))$cover
     colors[as.character(covers)]
   })
-
+  
   #print the CIplot
   output$CIplot <- renderPlot({
     validate(need(is.numeric(input$nsamp),
@@ -494,18 +493,19 @@ server <- function(input, output, session) {
         axis.ticks.y = element_blank()
       )
   })
-
+  
   output$sampProp  = renderPlot({
     validate(need(is.numeric(input$nsamp),
                   message = "Please input sample size"))
     my_vector = c(round(mean(OneSample()$x), 2), 1 - round(mean(OneSample()$x), 2))
     names(my_vector) = c("PA Students", "Non-PA Students")
-    ggplot() + geom_bar(
-      aes(x = names(my_vector), y = my_vector),
-      width = 0.3,
-      stat = 'identity',
-      fill = OneSampleColor()
-    ) +
+    ggplot() + 
+      geom_bar(
+        aes(x = names(my_vector), y = my_vector),
+        width = 0.3,
+        stat = 'identity',
+        fill = OneSampleColor()
+      ) +
       lims(y = c(0, 1)) +
       geom_hline(yintercept = 0.583,
                  color = "forestgreen",
@@ -520,37 +520,33 @@ server <- function(input, output, session) {
         x = "Pennsylvania residency status",
         y = "Proportion Enrollment by Residency"
       )
-
-
   })
-
+  
   rate <- reactiveValues(cover = 0, total = 0)
   observeEvent(input$more, {
     rate$cover <- sum(Intervals()$cover)
     rate$total <- nrow(Intervals())
   })
-
-
+  
   observeEvent(c(input$A, input$B, input$n, input$level),
                {
                  rate$cover <-
                    sum(Intervals()$cover)
                  rate$total <- nrow(Intervals())
                })
-
+  
   # information about the lines
   output$orangeline <- renderText({
     paste0("The orange line is the true proportion that you input.")
   })
-
+  
   output$greenline <- renderText({
     paste0("The green line is the null hypothesis percentage and also the true proportion in 2019.")
   })
-
+  
   output$CoverageRate <- renderText({
     validate(need(is.numeric(input$nsamp),
                   message = "Please input sample size"))
-
     paste(
       sum(Intervals()$cover),
       "of these",
@@ -564,3 +560,5 @@ server <- function(input, output, session) {
 
 # Boast App Call ----
 boastApp(ui = ui, server = server)
+
+
